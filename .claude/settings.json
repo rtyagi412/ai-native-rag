@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python",
+            "command": "python3",
             "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guard_edits.py"],
             "timeout": 15
           }
@@ -36,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python",
+            "command": "python3",
             "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guard_bash.py"],
             "timeout": 15
           }
@@ -49,7 +49,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python",
+            "command": "python3",
             "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/format_python.py"],
             "timeout": 60
           }

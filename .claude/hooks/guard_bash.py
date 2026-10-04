@@ -21,6 +21,18 @@ RULES = [
      "Destructive git commands are not allowed."),
     (r"\b(cat|less|more|head|tail|type|grep|sed|awk|source)\b[^|;&]*\.env(?!\.example)\b",
      "Reading .env is not allowed. The app loads its values at runtime."),
+    # Code on stdin cannot be analyzed by the permission checker, so it stalls an
+    # autonomous run on a human prompt. Block it and tell Claude the file-based way.
+    (r"<<-?\s*['\"]?\w+",
+     "Heredocs are not allowed. Commit message: write .claude/state/commit-msg.txt, then "
+     "`git commit -F .claude/state/commit-msg.txt`. PR body: write .claude/state/pr-body.md, "
+     "then `gh pr create --body-file .claude/state/pr-body.md`. Script: write a file, then "
+     "`uv run python <file>`."),
+    (r"\bpython3?\s+(-c\b|-\s|-$)",
+     "Inline/stdin Python is not allowed. Write the code to a file (scripts/ for one-offs) "
+     "and run `uv run python <file>`."),
+    (r"\|\s*(uv\s+run\s+)?(python3?|sh|bash)\b",
+     "Piping into an interpreter is not allowed. Write the code to a file and run it."),
 ]
 
 
